@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=home.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YourIdea.in</title>
-  <style>
-    html,body{margin:0;height:100%;background:#050b14;color:#eef5ff;font-family:Inter,Arial,sans-serif;display:grid;place-items:center}.wrap{text-align:center;padding:28px}.btn{display:inline-block;margin-top:14px;padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#f5c34b,#ffd977);color:#170f09;text-decoration:none;font-weight:800}p{color:#9aaec7}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <h1>Redirecting...</h1>
-    <p>Opening the updated homepage.</p>
-    <a class="btn" href="home.html">Go to Home</a>
-  </div>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#fffdf6">
+<title>Dashboard | YourIdea</title><meta name="description" content="YourIdea: websites, apps, AI, design, domains and hosting. Code. Create. Innovate.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/style.css">
+</head><body data-p="dashboard"><main>
+<div class="wrap pg"><h2>Your dashboard</h2><p class="lead">Start a project, check prices or pick a design. Everything in one place.</p>
+<div class="acts"><a class="card" href="#start"><h3>Start a project</h3><p>Choose services and describe your idea.</p></a><a class="card" href="pricing.html"><h3>Prices</h3><p>Low starting prices for websites.</p></a><a class="card" href="logins.html"><h3>Premium login pages</h3><p>20 designs in every style.</p></a><a class="card" href="contact.html"><h3>Contact us</h3><p>Call, email or Instagram.</p></a></div>
+<div class="stats" style="margin-top:40px"><div><strong data-n="42" data-s="+">0</strong><span>Projects delivered</span></div><div><strong data-n="8">0</strong><span>Services</span></div><div><strong data-n="24" data-s="h">0</strong><span>Reply time</span></div></div></div>
+<section id="start"><div class="wrap"><h2>Start your project</h2><p class="lead">Select one or more services. Then tell us what you want.</p><div class="grid" id="svc"></div>
+<div class="idea" id="idea" style="display:none;margin-top:30px"><h2 style="font-size:26px">Your project</h2><div class="chips" id="sel"></div>
+<label for="tx">Describe your project, your ideas and make your customised app, website etc.</label><textarea id="tx" placeholder="Example: A salon booking app with online payments and reminders."></textarea>
+<label for="nm">Your name</label><input id="nm" autocomplete="name"><label for="em">Phone or email</label><input id="em">
+<div class="row"><button class="btn g" id="mic" type="button">🎤 Speak your idea</button><button class="btn" id="mail" type="button">Send by email</button><button class="btn g" id="wa" type="button">Send on WhatsApp</button></div><div id="note" role="status"></div></div></div></section>
+<section><div class="wrap"><h2>How your project moves</h2><p class="lead">Four steps, with you in the loop at every one.</p><ol class="steps"><li><h3>Discover</h3><p>We listen to your goal and agree on scope.</p></li><li><h3>Design</h3><p>You see screens before any code is written.</p></li><li><h3>Build</h3><p>Weekly working builds shared with you.</p></li><li><h3>Launch</h3><p>Deployment, domain, hosting and support.</p></li></ol></div></section>
+</main><script src="assets/app.js"></script>
+<script>let P=[];try{const d=JSON.parse(localStorage.getItem('inv')||'{}');P=d.s||[];if(d.t)$('tx').value=d.t;localStorage.removeItem('inv')}catch(e){}
+const g=$('svc');S.forEach((s,i)=>g.insertAdjacentHTML('beforeend','<button class="card" data-i="'+i+'"><svg viewBox="0 0 24 24"><path d="'+s[2]+'"/></svg><h3>'+s[0]+'</h3><p>'+s[3]+'</p></button>'));
+function R(){$('idea').style.display=P.length?'block':'none';$('sel').innerHTML=P.map(n=>'<button class="chip on" data-n="'+n+'">'+n+' ×</button>').join('');[...g.children].forEach((c,i)=>c.classList.toggle('sel',P.includes(S[i][0])))}
+g.onclick=e=>{const b=e.target.closest('.card');if(!b)return;const n=S[+b.dataset.i][0],k=P.indexOf(n);k>-1?P.splice(k,1):P.push(n);R();if(P.length)$('idea').scrollIntoView({behavior:'smooth',block:'nearest'})};
+$('sel').onclick=e=>{const b=e.target.closest('.chip');if(b){P.splice(P.indexOf(b.dataset.n),1);R()}};R();
+const tx=$('tx'),note=$('note'),mic=$('mic'),SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec,on=0;
+if(!SR)mic.style.display='none';else mic.onclick=()=>{if(on){rec.stop();return}rec=new SR();rec.lang='hi-IN';rec.continuous=true;rec.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)tx.value+=(tx.value?' ':'')+e.results[i][0].transcript};rec.onend=()=>{on=0;mic.classList.remove('rec');mic.textContent='🎤 Speak your idea'};rec.onerror=()=>{note.textContent='Mic not available. Please type your idea.'};rec.start();on=1;mic.classList.add('rec');mic.textContent='Listening... tap to stop'};
+const M=()=>{if(!tx.value.trim()){note.textContent='Please describe your project first.';return null}return 'Name: '+$('nm').value+'\nContact: '+$('em').value+'\nServices: '+P.join(', ')+'\n\nProject:\n'+tx.value};
+$('mail').onclick=()=>{const m=M();if(m)location.href='mailto:'+CFG.email+'?subject='+encodeURIComponent('New project idea')+'&body='+encodeURIComponent(m)};
+$('wa').onclick=()=>{const m=M();if(m)window.open('https://wa.me/91'+CFG.phone+'?text='+encodeURIComponent(m),'_blank')};
+if(P.length)setTimeout(()=>$('start').scrollIntoView(),100)</script>
+</body></html>
