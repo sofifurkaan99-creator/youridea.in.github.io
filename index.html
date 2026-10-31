@@ -1,277 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BrandOrbitX | Welcome</title>
-<style>
-  @font-face {
-    font-family: 'ClashDisplay';
-    src: local('Arial');
-  }
-  :root{
-    --void:#06080f;
-    --panel:#0d1426;
-    --primary:#7c5cff;
-    --accent:#ff6b4a;
-    --text:#e8eaf2;
-    --muted:#5a6178;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{
-    width:100%;height:100%;
-    background:var(--void);
-    font-family:'Inter',-apple-system,sans-serif;
-    overflow:hidden;
-  }
-
-  #particles{
-    position:fixed; inset:0; z-index:0;
-    pointer-events:none;
-  }
-
-  .ambient{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:
-      radial-gradient(ellipse 900px 600px at 50% -5%, rgba(124,92,255,.22), transparent 60%),
-      radial-gradient(ellipse 600px 400px at 90% 20%, rgba(255,107,74,.1), transparent 60%),
-      radial-gradient(ellipse 500px 500px at 5% 80%, rgba(111,212,255,.06), transparent 60%);
-  }
-
-  .stage{
-    position:relative;
-    width:100%;height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:1;
-  }
-
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  @keyframes fadeIn{ to{ opacity:1; } }
-
-  /* ===== Logo lockup (CSS/SVG, no image/video) ===== */
-  .logo-stage{
-    position:relative;
-    width:340px; height:340px;
-    display:flex; align-items:center; justify-content:center;
-    opacity:0;
-    transform:scale(.92);
-    animation:rise 1s cubic-bezier(.16,1,.3,1) .2s forwards;
-    z-index:2;
-  }
-  @keyframes rise{
-    to{ opacity:1; transform:scale(1); }
-  }
-
-  /* soft halo behind the sphere */
-  .logo-halo{
-    position:absolute;
-    width:300px; height:300px;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(60,140,255,.35), rgba(60,140,255,.08) 55%, transparent 75%);
-    filter:blur(6px);
-    animation:pulse 4s ease-in-out infinite;
-  }
-  @keyframes pulse{
-    0%,100%{ opacity:.7; transform:scale(1); }
-    50%{ opacity:1; transform:scale(1.04); }
-  }
-
-  /* dark glass sphere */
-  .logo-sphere{
-    position:absolute;
-    width:260px; height:260px;
-    border-radius:50%;
-    background:
-      radial-gradient(circle at 38% 32%, rgba(90,150,255,.35), transparent 55%),
-      radial-gradient(circle at 65% 70%, rgba(20,30,60,.9), #060912 70%);
-    border:1px solid rgba(120,170,255,.25);
-    box-shadow:
-      0 0 50px rgba(60,130,255,.25),
-      inset 0 0 50px rgba(0,0,0,.6);
-  }
-  .logo-sphere::before{
-    /* faint inner ring (planet body line) */
-    content:'';
-    position:absolute; inset:18px;
-    border-radius:50%;
-    border:1px solid rgba(180,210,255,.18);
-  }
-
-  /* the tilted glowing orbit ring around B·X */
-  .logo-orbit{
-    position:absolute;
-    width:300px; height:96px;
-    border-radius:50%;
-    border:2.5px solid #6fd4ff;
-    transform:rotate(-18deg);
-    box-shadow:
-      0 0 14px 1px rgba(111,212,255,.85),
-      0 0 34px 4px rgba(94,203,255,.35);
-    animation:spin 16s linear infinite;
-  }
-  .logo-orbit::after{
-    /* bright lead node on the ring */
-    content:'';
-    position:absolute;
-    top:50%; right:-6px;
-    width:11px; height:11px;
-    border-radius:50%;
-    background:#eafcff;
-    box-shadow:0 0 16px 5px rgba(160,225,255,1);
-    transform:translateY(-50%);
-  }
-
-  /* B·X wordmark */
-  .logo-letters{
-    position:relative;
-    z-index:3;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    font-family:'Inter',sans-serif;
-    font-weight:800;
-    font-size:74px;
-    letter-spacing:-2px;
-    background:linear-gradient(180deg, #ffffff 0%, #cdd8ea 45%, #8e9bb8 100%);
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    filter:drop-shadow(0 2px 6px rgba(0,0,0,.6));
-  }
-  .logo-letters .spark{
-    width:10px; height:10px;
-    background:#7fd8ff;
-    transform:rotate(45deg);
-    box-shadow:0 0 12px 3px rgba(127,216,255,.9);
-    -webkit-text-fill-color:initial;
-  }
-
-  /* brandorbitX wordmark below */
-  .logo-word{
-    position:absolute;
-    bottom:-44px;
-    left:50%;
-    transform:translateX(-50%);
-    font-family:'Inter',sans-serif;
-    font-weight:700;
-    font-size:26px;
-    letter-spacing:.5px;
-    background:linear-gradient(180deg, #ffffff, #aebfe0);
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    white-space:nowrap;
-    opacity:0;
-    animation:fadeIn .8s ease .5s forwards;
-  }
-
-  .btn-container{
-    position:absolute;
-    bottom:48px; left:50%;
-    transform:translateX(-50%);
-    z-index:3;
-    opacity:0;
-    animation:fadeIn .8s ease .6s forwards;
-  }
-
-  .glass-btn{
-    position:relative;
-    padding:17px 42px;
-    background:rgba(124,92,255,.06);
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
-    border:1px solid rgba(124,92,255,.4);
-    color:var(--text);
-    font-size:14px;
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:3px;
-    border-radius:50px;
-    text-decoration:none;
-    transition:.4s cubic-bezier(.16,1,.3,1);
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-  }
-  .glass-btn:hover{
-    background:rgba(124,92,255,.14);
-    border-color:var(--primary);
-    box-shadow:0 0 30px rgba(124,92,255,.35);
-    transform:translateY(-2px);
-    letter-spacing:4px;
-  }
-  .glass-btn svg{ transition:.4s; }
-  .glass-btn:hover svg{ transform:translateX(4px); }
-
-  @media (prefers-reduced-motion: reduce){
-    .logo-orbit, .logo-halo{ animation:none; }
-    .logo-stage, .logo-word, .btn-container{ animation:none; opacity:1; }
-  }
-
-  @media (max-width:420px){
-    .logo-stage{ width:280px; height:280px; }
-    .logo-halo, .logo-sphere{ width:220px; height:220px; }
-    .logo-orbit{ width:250px; height:80px; }
-    .logo-letters{ font-size:58px; }
-    .logo-word{ font-size:21px; bottom:-38px; }
-  }
-</style>
-</head>
-<body>
-  <canvas id="particles"></canvas>
-  <div class="ambient"></div>
-
-  <div class="stage">
-    <div class="logo-stage">
-      <div class="logo-halo"></div>
-      <div class="logo-sphere"></div>
-      <div class="logo-orbit"></div>
-      <div class="logo-letters">B<span class="spark"></span>X</div>
-      <div class="logo-word">brandorbitX</div>
-    </div>
-
-    <div class="btn-container">
-      <a href="home.html" class="glass-btn">
-        Enter
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </div>
-
-  <script>
-    // PARTICLES
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let W, H, particles = [];
-    function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-    resize();
-    window.addEventListener('resize', resize);
-    class Particle{
-      constructor(){
-        this.x = Math.random()*W; this.y = Math.random()*H;
-        this.size = Math.random()*1.5+0.3;
-        this.vx = (Math.random()-.5)*.3; this.vy = (Math.random()-.5)*.3;
-        this.alpha = Math.random()*.6+.1;
-        const c = ['rgba(124,92,255,','rgba(111,212,255,','rgba(255,107,74,','rgba(232,234,242,'];
-        this.color = c[Math.floor(Math.random()*c.length)];
-      }
-      draw(){ ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fillStyle=this.color+this.alpha+')'; ctx.fill(); }
-      update(){
-        this.x+=this.vx; this.y+=this.vy;
-        if(this.x<0||this.x>W) this.vx*=-1;
-        if(this.y<0||this.y>H) this.vy*=-1;
-      }
+{
+  "name": "youridea.in",
+  "short_name": "youridea.in",
+  "description": "Modern design, branding, and website solutions for growing businesses.",
+  "start_url": "/brandorbitX.github.io/home.html",
+  "display": "standalone",
+  "background_color": "#0a0d14",
+  "theme_color": "#f5c34b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/youridea-logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/youridea-logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
-    for(let i=0;i<90;i++) particles.push(new Particle());
-    function drawLines(){
-      for(let i=0;i<particles.length;i++){
-        for(let j=i+1;j<particles.length;j++){
-          const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
-          const d=Math.sqrt(dx*dx+dy*dy);
-          if(d<120){ ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.strokeStyle=`rgba(124,92,255,${.08*(1-d/120)})`; ctx.lineWidth=.5; ctx.stroke(); }
-        }
-      }
-    }
-    function animate(){ ctx.clearRect(0,0,W,H); particles.forEach(p=>{p.update();p.draw();}); drawLines(); requestAnimationFrame(animate); }
-    animate();
-  </script>
-</body>
-</html>
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

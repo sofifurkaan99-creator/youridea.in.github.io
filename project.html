@@ -1,318 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Describe Project | BrandOrbitX</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  :root{
-    --void:#06080f;
-    --panel:#0d1426;
-    --panel-2:#111a32;
-    --primary:#7c5cff;
-    --primary-soft:rgba(124,92,255,.12);
-    --accent:#ff6b4a;
-    --text:#e8eaf2;
-    --muted:#8088a0;
-    --line:rgba(255,255,255,.1);
-  }
-  *{ margin:0; padding:0; box-sizing:border-box; font-family:'Inter',-apple-system,sans-serif; }
-  body{
-    background:var(--void);
-    color:var(--text);
-    min-height:100vh;
-    display:flex; flex-direction:column;
-    -webkit-font-smoothing:antialiased;
-    position:relative;
-    overflow-x:hidden;
-  }
-  .mono{ font-family:'JetBrains Mono',monospace; }
-  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-    outline:2px solid var(--primary); outline-offset:2px;
-  }
-
-  #particles{
-    position:fixed; inset:0; z-index:0;
-    pointer-events:none;
-  }
-
-  .ambient{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:
-      radial-gradient(ellipse 900px 600px at 50% -5%, rgba(124,92,255,.22), transparent 60%),
-      radial-gradient(ellipse 600px 400px at 90% 20%, rgba(255,107,74,.1), transparent 60%),
-      radial-gradient(ellipse 500px 500px at 5% 80%, rgba(111,212,255,.06), transparent 60%);
-  }
-
-  nav{
-    position:relative; z-index:2;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:20px 6%;
-  }
-  .logo{ display:flex; align-items:center; gap:9px; font-weight:700; text-decoration:none; color:var(--text); }
-  .logo .dot{ width:8px;height:8px;border-radius:50%;background:var(--accent); box-shadow:0 0 10px var(--accent); }
-  nav a.back{ color:var(--muted); text-decoration:none; font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px; transition:.3s; }
-  nav a.back:hover{ color:var(--text); }
-
-  main{
-    flex:1;
-    display:flex; align-items:center; justify-content:center;
-    padding:40px 20px 80px;
-    position:relative; z-index:1;
-  }
-
-  .layout{
-    display:grid;
-    grid-template-columns:1fr 1.1fr;
-    gap:60px;
-    max-width:980px;
-    width:100%;
-    align-items:center;
-  }
-
-  .intro .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px; letter-spacing:2px; text-transform:uppercase;
-    color:var(--muted);
-    border:1px solid var(--line);
-    padding:7px 16px; border-radius:50px;
-    margin-bottom:24px;
-  }
-  .intro .eyebrow .dot{ width:6px;height:6px;border-radius:50%;background:var(--accent); }
-  .intro h1{
-    font-size:clamp(1.8rem,4vw,2.6rem);
-    font-weight:800; letter-spacing:-1px; line-height:1.15;
-    margin-bottom:18px;
-  }
-  .intro h1 span{
-    background:linear-gradient(100deg, var(--primary), var(--accent));
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-  }
-  .intro p{ color:var(--muted); line-height:1.7; margin-bottom:32px; max-width:420px; }
-
-  .steps{ display:flex; flex-direction:column; gap:18px; }
-  .step{ display:flex; gap:14px; align-items:flex-start; }
-  .step .n{
-    width:28px; height:28px; border-radius:8px;
-    background:var(--primary-soft); border:1px solid rgba(124,92,255,.3);
-    color:var(--primary); font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700;
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .step p{ margin:0; color:var(--text); font-size:.92rem; }
-  .step span{ display:block; color:var(--muted); font-size:.82rem; margin-top:2px; }
-
-  .box{
-    position:relative;
-    background:linear-gradient(165deg, var(--panel), var(--panel-2));
-    padding:44px;
-    border-radius:24px;
-    border:1px solid var(--line);
-    box-shadow:0 30px 80px rgba(0,0,0,.4);
-  }
-  .box h2{ font-size:1.4rem; font-weight:800; margin-bottom:6px; }
-  .box .sub{ color:var(--muted); font-size:.88rem; margin-bottom:28px; }
-
-  .field{ margin-bottom:18px; }
-  .field label{
-    display:block; font-size:.78rem; font-weight:600; color:var(--muted);
-    text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;
-    font-family:'JetBrains Mono',monospace;
-  }
-  input, textarea{
-    width:100%; padding:14px 16px;
-    background:rgba(6,8,15,.6);
-    border:1px solid var(--line);
-    color:var(--text);
-    border-radius:12px;
-    outline:none;
-    font-size:.95rem;
-    transition:.3s;
-    resize:vertical;
-  }
-  input::placeholder, textarea::placeholder{ color:#4a5168; }
-  input:focus, textarea:focus{ border-color:var(--primary); box-shadow:0 0 0 4px rgba(124,92,255,.12); }
-
-  button[type="submit"]{
-    width:100%; padding:16px;
-    background:var(--primary);
-    border:none; border-radius:12px;
-    font-weight:700; font-size:.95rem;
-    letter-spacing:.5px;
-    cursor:pointer; color:#fff;
-    transition:.35s cubic-bezier(.16,1,.3,1);
-    margin-top:8px;
-    display:flex; align-items:center; justify-content:center; gap:10px;
-  }
-  button[type="submit"]:hover:not(:disabled){
-    transform:translateY(-2px);
-    box-shadow:0 12px 28px rgba(124,92,255,.4);
-  }
-  button[type="submit"]:disabled{ opacity:.7; cursor:wait; }
-
-  .thank-you-msg{ display:none; text-align:center; padding:30px 0; }
-  .thank-you-msg .icon{
-    width:64px; height:64px; border-radius:50%;
-    background:var(--primary-soft); border:1px solid rgba(124,92,255,.35);
-    display:flex; align-items:center; justify-content:center;
-    margin:0 auto 22px;
-    color:var(--primary); font-size:1.6rem;
-  }
-  .thank-you-msg h3{ font-size:1.5rem; font-weight:800; margin-bottom:12px; }
-  .thank-you-msg p{ color:var(--muted); font-size:.95rem; line-height:1.6; max-width:320px; margin:0 auto; }
-
-  @media (max-width:840px){
-    .layout{ grid-template-columns:1fr; gap:40px; }
-    .intro{ text-align:center; }
-    .intro p{ margin-inline:auto; }
-    .step{ text-align:left; }
-    .box{ padding:32px 26px; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing | youridea.in</title>
+  <meta name="theme-color" content="#f5c34b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #0a0d14; --panel: #111827; --panel-2: #171f2f; --primary: #f5c34b; --primary-soft: rgba(245,195,75,0.10); --accent: #1ea2ff; --text: #edf3ff; --muted: #aab7cf; --line: rgba(255,255,255,0.10);
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Inter', sans-serif; background: var(--bg); color:var(--text); overflow-x:hidden; }
+    a { color:inherit; text-decoration:none; }
+    .mono { font-family:'JetBrains Mono', monospace; }
+    .bg-orb {
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      background: radial-gradient(circle at 50% 0%, rgba(245,195,75,0.16), transparent 30%), radial-gradient(circle at 90% 20%, rgba(30,162,255,0.12), transparent 26%);
+    }
+    nav {
+      position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; padding:18px 6%;
+      background: rgba(10,13,20,0.8); border-bottom:1px solid var(--line); backdrop-filter: blur(12px);
+    }
+    .logo { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-0.04em; }
+    .logo-mark { width:30px; height:30px; border-radius:12px; overflow:hidden; }
+    .logo-text { text-transform: lowercase; }
+    .section { position:relative; z-index:1; max-width:1140px; margin:0 auto; padding:80px 6% 0; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:10px; padding:8px 16px; border-radius:999px; background: rgba(255,255,255,0.02); border:1px solid var(--line); color: var(--muted); font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase;
+    }
+    .eyebrow .dot { width:8px; height:8px; border-radius:50%; background: var(--primary); box-shadow: 0 0 10px rgba(245,195,75,0.8); }
+    h1 { font-size:clamp(2.4rem, 5vw, 4rem); letter-spacing:-0.06em; line-height:0.95; margin:20px 0 14px; }
+    h1 .accent { background: linear-gradient(90deg, var(--primary), #ffd979 50%, var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .subtitle { max-width:680px; margin:0 auto; color:var(--muted); line-height:1.8; }
+    .grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px; margin-top:42px; }
+    .plan {
+      background: linear-gradient(180deg, rgba(17,24,39,0.86), rgba(21,31,50,0.9));
+      border:1px solid var(--line); border-radius:24px; padding:28px 22px; position:relative;
+    }
+    .plan.featured { border-color: rgba(245,195,75,0.5); box-shadow: 0 0 0 1px rgba(245,195,75,0.2), 0 16px 40px rgba(245,195,75,0.08); }
+    .plan.featured::before {
+      content:'Most Popular'; position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+      background: var(--primary); color:#171410; padding:6px 12px; border-radius:999px; font-size:0.68rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase;
+    }
+    .plan .icon { width:52px; height:52px; border-radius:16px; display:grid; place-items:center; background: rgba(245,195,75,0.1); border:1px solid rgba(245,195,75,0.25); color: var(--primary); margin-bottom:16px; }
+    .plan h3 { font-size:1.4rem; margin-bottom:6px; }
+    .label { color:var(--muted); font-size:0.9rem; }
+    .price { margin-top:12px; font-size:2.5rem; font-weight:900; letter-spacing:-0.08em; }
+    .price span { font-size:0.95rem; letter-spacing:0; color:var(--muted); }
+    ul { list-style:none; margin:22px 0 26px; display:grid; gap:10px; }
+    li { display:flex; gap:10px; color:var(--text); line-height:1.7; }
+    li i { color: var(--primary); margin-top:4px; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:14px 16px; border-radius:14px;
+      background: transparent; border:1px solid rgba(245,195,75,0.3); color: var(--text); font-weight:700;
+    }
+    .plan.featured .btn { background: var(--primary); color:#171410; border-color:var(--primary); }
+    .add-ons { margin:80px 0 0; }
+    .extra-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; margin-top:24px; }
+    .extra { display:flex; align-items:center; justify-content:space-between; gap:18px; background: rgba(17,24,39,0.7); border:1px solid var(--line); border-radius:16px; padding:18px 18px; }
+    .extra .name { display:flex; align-items:center; gap:10px; }
+    .extra .name i { color: var(--primary); }
+    .extra .price { font-size:0.9rem; margin:0; font-weight:700; letter-spacing:0; }
+    footer { padding:30px 20px 50px; text-align:center; color: var(--muted); border-top:1px solid var(--line); margin-top:70px; }
+    @media (max-width:760px) { .grid, .extra-grid { grid-template-columns:1fr; } }
+  </style>
 </head>
 <body>
+  <div class="bg-orb"></div>
+  <nav>
+    <a class="logo" href="home.html">
+      <img class="logo-mark" src="images/youridea-logo.svg" alt="youridea.in" />
+      <span class="logo-text">youridea.in</span>
+    </a>
+    <a href="project.html" style="font-weight:700;">Start Project</a>
+  </nav>
 
-<canvas id="particles"></canvas>
-<div class="ambient"></div>
+  <div class="section">
+    <div class="eyebrow"><span class="dot"></span> Pricing</div>
+    <h1>Simple plans for your <span class="accent">next stage</span></h1>
+    <p class="subtitle">Choose a package that matches your current needs and scale up as your business grows.</p>
 
-<nav>
-  <a href="home.html" class="logo"><span class="dot"></span>BrandOrbitX</a>
-  <a href="dashboard.html" class="back"><i class="fas fa-arrow-left"></i> Back to Designs</a>
-</nav>
+    <div class="grid">
+      <div class="plan">
+        <div class="icon"><i class="fas fa-seedling"></i></div>
+        <h3>Starter</h3>
+        <div class="label">For simple business websites</div>
+        <div class="price mono"><span>From</span> ₹3,999</div>
+        <ul>
+          <li><i class="fas fa-check"></i><span>Up to 5 pages</span></li>
+          <li><i class="fas fa-check"></i><span>Responsive design</span></li>
+          <li><i class="fas fa-check"></i><span>Contact & WhatsApp setup</span></li>
+          <li><i class="fas fa-check"></i><span>Basic SEO</span></li>
+        </ul>
+        <a class="btn" href="project.html">Start Starter Project</a>
+      </div>
 
-<main>
-  <div class="layout">
+      <div class="plan featured">
+        <div class="icon"><i class="fas fa-bolt"></i></div>
+        <h3>Growth</h3>
+        <div class="label">For growing brands</div>
+        <div class="price mono"><span>From</span> ₹7,999</div>
+        <ul>
+          <li><i class="fas fa-check"></i><span>Up to 10 pages</span></li>
+          <li><i class="fas fa-check"></i><span>Premium UI/UX design</span></li>
+          <li><i class="fas fa-check"></i><span>Blog, reviews & gallery</span></li>
+          <li><i class="fas fa-check"></i><span>Advanced SEO setup</span></li>
+        </ul>
+        <a class="btn" href="project.html">Start Growth Project</a>
+      </div>
 
-    <div class="intro">
-      <span class="eyebrow"><span class="dot"></span>Start a project</span>
-      <h1>Tell us what you're <span>building</span></h1>
-      <p>Share a few details and we'll get back to you with next steps, timeline, and pricing for your tier.</p>
-
-      <div class="steps">
-        <div class="step">
-          <span class="n mono">1</span>
-          <div><p>Submit your brief</p><span>Name, email, and what you have in mind</span></div>
-        </div>
-        <div class="step">
-          <span class="n mono">2</span>
-          <div><p>We review & reply</p><span>Usually within a few hours</span></div>
-        </div>
-        <div class="step">
-          <span class="n mono">3</span>
-          <div><p>Your site goes live</p><span>Delivered in as little as 24 hours</span></div>
-        </div>
+      <div class="plan">
+        <div class="icon"><i class="fas fa-crown"></i></div>
+        <h3>Premium</h3>
+        <div class="label">For advanced digital platforms</div>
+        <div class="price mono"><span>From</span> ₹14,999</div>
+        <ul>
+          <li><i class="fas fa-check"></i><span>Custom design & unlimited pages</span></li>
+          <li><i class="fas fa-check"></i><span>Admin dashboard</span></li>
+          <li><i class="fas fa-check"></i><span>Cart, booking or booking-like flows</span></li>
+          <li><i class="fas fa-check"></i><span>Advanced security & support</span></li>
+        </ul>
+        <a class="btn" href="project.html">Start Premium Project</a>
       </div>
     </div>
 
-    <div class="box">
-      <div id="form-container">
-        <h2>Project Brief</h2>
-        <p class="sub">All fields required — the more detail, the better.</p>
-        <form id="project-form" action="https://formspree.io/f/xlgkqvdv" method="POST">
-          <div class="field">
-            <label for="name">Full name</label>
-            <input id="name" type="text" name="name" placeholder="Your name" required>
-          </div>
-          <div class="field">
-            <label for="email">Email address</label>
-            <input id="email" type="email" name="email" placeholder="you@example.com" required>
-          </div>
-          <div class="field">
-            <label for="message">Project details</label>
-            <textarea id="message" name="message" rows="5" placeholder="Describe your project — type of business, tier, ideas you have..." required></textarea>
-          </div>
-          <button type="submit" id="submit-btn">
-            <span id="submit-label">Submit Project</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-        </form>
-      </div>
-
-      <div id="thank-you-container" class="thank-you-msg">
-        <div class="icon"><i class="fas fa-check"></i></div>
-        <h3>Thank you!</h3>
-        <p>Your project brief has been submitted. We'll get back to you shortly.</p>
+    <div class="add-ons">
+      <div class="eyebrow"><span class="dot"></span> Add-ons</div>
+      <div class="extra-grid">
+        <div class="extra"><span class="name"><i class="fas fa-paintbrush"></i> Logo Design</span><span class="price mono">₹500</span></div>
+        <div class="extra"><span class="name"><i class="fas fa-image"></i> Banner Design</span><span class="price mono">₹300</span></div>
+        <div class="extra"><span class="name"><i class="fas fa-file"></i> Extra Page</span><span class="price mono">₹300</span></div>
+        <div class="extra"><span class="name"><i class="fas fa-envelope"></i> Business Email</span><span class="price mono">₹500</span></div>
+        <div class="extra"><span class="name"><i class="fas fa-magnifying-glass-chart"></i> SEO</span><span class="price mono">₹1,500</span></div>
+        <div class="extra"><span class="name"><i class="fas fa-mobile-screen-button"></i> App Design</span><span class="price mono">From ₹10,000</span></div>
       </div>
     </div>
-
   </div>
-</main>
 
-<script>
-  // PARTICLES
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
-  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
-  class Particle{
-    constructor(){
-      this.x = Math.random()*W; this.y = Math.random()*H;
-      this.size = Math.random()*1.5+0.3;
-      this.vx = (Math.random()-.5)*.3; this.vy = (Math.random()-.5)*.3;
-      this.alpha = Math.random()*.6+.1;
-      const c = ['rgba(124,92,255,','rgba(111,212,255,','rgba(255,107,74,','rgba(232,234,242,'];
-      this.color = c[Math.floor(Math.random()*c.length)];
-    }
-    draw(){ ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fillStyle=this.color+this.alpha+')'; ctx.fill(); }
-    update(){
-      this.x+=this.vx; this.y+=this.vy;
-      if(this.x<0||this.x>W) this.vx*=-1;
-      if(this.y<0||this.y>H) this.vy*=-1;
-    }
-  }
-  for(let i=0;i<90;i++) particles.push(new Particle());
-  function drawLines(){
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d<120){ ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.strokeStyle=`rgba(124,92,255,${.08*(1-d/120)})`; ctx.lineWidth=.5; ctx.stroke(); }
-      }
-    }
-  }
-  function animate(){ ctx.clearRect(0,0,W,H); particles.forEach(p=>{p.update();p.draw();}); drawLines(); requestAnimationFrame(animate); }
-  animate();
-
-  const form = document.getElementById('project-form');
-  const formContainer = document.getElementById('form-container');
-  const thankYouContainer = document.getElementById('thank-you-container');
-  const submitBtn = document.getElementById('submit-btn');
-  const submitLabel = document.getElementById('submit-label');
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    submitLabel.innerText = "Sending...";
-    submitBtn.disabled = true;
-
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
-        formContainer.style.display = 'none';
-        thankYouContainer.style.display = 'block';
-      } else {
-        alert("Something went wrong. Please try again.");
-        submitLabel.innerText = "Submit Project";
-        submitBtn.disabled = false;
-      }
-    } catch (error) {
-      alert("Network error. Please check your connection and try again.");
-      submitLabel.innerText = "Submit Project";
-      submitBtn.disabled = false;
-    }
-  });
-</script>
-
+  <footer>© 2026 youridea.in | All Rights Reserved</footer>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
