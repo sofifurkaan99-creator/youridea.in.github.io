@@ -163,6 +163,20 @@ app.post('/api/projects', authenticate, (req, res) => {
   res.status(201).json(newProject);
 });
 
+app.delete('/api/projects/:id', authenticate, (req, res) => {
+  const store = readStore();
+  const id = Number(req.params.id);
+  const index = store.projects.findIndex((project) => project.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'Project not found' });
+  }
+
+  const removed = store.projects.splice(index, 1)[0];
+  writeStore(store);
+  res.json({ success: true, removed });
+});
+
 app.get('/api/enquiries', authenticate, (req, res) => {
   const store = readStore();
   res.json(store.enquiries);
@@ -190,14 +204,97 @@ app.post('/api/enquiries', authenticate, (req, res) => {
   res.status(201).json(newEnquiry);
 });
 
+app.patch('/api/enquiries/:id/status', authenticate, (req, res) => {
+  const store = readStore();
+  const id = Number(req.params.id);
+  const { status } = req.body || {};
+
+  const enquiry = store.enquiries.find((item) => item.id === id);
+  if (!enquiry) {
+    return res.status(404).json({ message: 'Enquiry not found' });
+  }
+
+  enquiry.status = status || enquiry.status;
+  writeStore(store);
+  res.json(enquiry);
+});
+
 app.get('/api/services', authenticate, (req, res) => {
   const store = readStore();
   res.json(store.services);
 });
 
+app.post('/api/services', authenticate, (req, res) => {
+  const store = readStore();
+  const { name, description, price } = req.body || {};
+
+  if (!name || !description) {
+    return res.status(400).json({ message: 'Name and description are required.' });
+  }
+
+  const newService = {
+    id: Date.now(),
+    name,
+    description,
+    price: price || 'Custom'
+  };
+
+  store.services.unshift(newService);
+  writeStore(store);
+  res.status(201).json(newService);
+});
+
+app.delete('/api/services/:id', authenticate, (req, res) => {
+  const store = readStore();
+  const id = Number(req.params.id);
+  const index = store.services.findIndex((service) => service.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'Service not found' });
+  }
+
+  const removed = store.services.splice(index, 1)[0];
+  writeStore(store);
+  res.json({ success: true, removed });
+});
+
 app.get('/api/pricing', authenticate, (req, res) => {
   const store = readStore();
   res.json(store.pricing);
+});
+
+app.post('/api/pricing', authenticate, (req, res) => {
+  const store = readStore();
+  const { tier, price, description } = req.body || {};
+
+  if (!tier || !price) {
+    return res.status(400).json({ message: 'Tier and price are required.' });
+  }
+
+  const newPlan = {
+    id: Date.now(),
+    tier,
+    price,
+    description: description || 'Custom package'
+  };
+
+  store.pricing.unshift(newPlan);
+  writeStore(store);
+  res.status(201).json(newPlan);
+});
+
+app.delete('/api/pricing/:id', authenticate, (req, res) => {
+  const store = readStore();
+  const id = Number(req.params.id);
+  const index = store.pricing.findIndex((plan) => plan.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'Pricing plan not found' });
+  }
+
+  const removed = store.pricing.splice(index, 1)[0];
+  writeStore(store);
+  res.json({ success: true, removed });
 });
 
 app.get('/api/health', (req, res) => {
