@@ -14,19 +14,19 @@
   <style>
     :root {
       --bg: #070b12;
-      --bg-2: #0e1624;
-      --panel: rgba(15, 22, 36, 0.82);
-      --panel-strong: rgba(17, 28, 42, 0.96);
+      --bg-2: #101a2a;
+      --panel: rgba(15, 22, 34, 0.8);
+      --panel-strong: rgba(18, 28, 42, 0.95);
       --primary: #f5c34b;
       --primary-2: #ffd977;
       --accent: #47b8ff;
       --accent-2: #7c5cff;
       --text: #edf5ff;
       --muted: #9aaec7;
-      --line: rgba(255,255,255,0.09);
-      --success: #58d09e;
-      --warning: #ff9f74;
-      --shadow: rgba(0, 0, 0, 0.35);
+      --line: rgba(255,255,255,0.1);
+      --success: #59d19f;
+      --warning: #ff9a74;
+      --shadow: rgba(0, 0, 0, 0.25);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,14 +34,15 @@
     body {
       font-family: 'Inter', sans-serif;
       background:
-        radial-gradient(circle at 50% -10%, rgba(245,195,75,0.18), transparent 30%),
-        radial-gradient(circle at 85% 20%, rgba(71,184,255,0.12), transparent 20%),
-        radial-gradient(circle at 12% 82%, rgba(124,92,255,0.12), transparent 22%),
-        linear-gradient(180deg, var(--bg), #091320 46%, #0a1220 100%);
+        radial-gradient(circle at 50% -8%, rgba(245,195,75,0.18), transparent 26%),
+        radial-gradient(circle at 88% 18%, rgba(71,184,255,0.12), transparent 20%),
+        radial-gradient(circle at 12% 82%, rgba(124,92,255,0.12), transparent 24%),
+        linear-gradient(180deg, #070b12 0%, #0a1220 48%, #0b1423 100%);
       color: var(--text);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
+
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
     .mono { font-family: 'JetBrains Mono', monospace; }
@@ -49,307 +50,369 @@
     .page-shell {
       position: relative;
       min-height: 100vh;
-      padding: 24px 20px 80px;
       overflow: hidden;
     }
 
-    .orb {
+    .bg-glow {
       position: absolute;
       border-radius: 50%;
       filter: blur(90px);
-      opacity: 0.5;
+      opacity: 0.55;
       pointer-events: none;
-      animation: floatOrb 12s ease-in-out infinite alternate;
+      animation: drift 12s ease-in-out infinite alternate;
     }
-    @keyframes floatOrb {
+
+    .bg-glow.one {
+      width: 420px; height: 420px; background: rgba(245,195,75,0.14);
+      top: -20px; left: 48%; transform: translateX(-50%);
+    }
+    .bg-glow.two {
+      width: 480px; height: 480px; background: rgba(71,184,255,0.12);
+      right: -150px; top: 12%; animation-delay: 0.8s;
+    }
+    .bg-glow.three {
+      width: 440px; height: 440px; background: rgba(124,92,255,0.12);
+      left: -120px; bottom: 8%; animation-delay: 1.2s;
+    }
+
+    @keyframes drift {
       0% { transform: translate3d(0,0,0) scale(1); }
       100% { transform: translate3d(18px,-18px,0) scale(1.08); }
     }
-    .orb.one { width: 440px; height: 440px; background: rgba(245,195,75,0.18); top: -30px; left: 50%; transform: translateX(-50%); }
-    .orb.two { width: 550px; height: 550px; background: rgba(71,184,255,0.12); right: -190px; top: 12%; animation-delay: 0.8s; }
-    .orb.three { width: 420px; height: 420px; background: rgba(124,92,255,0.12); left: -160px; bottom: 8%; animation-delay: 1.1s; }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(9, 13, 21, 0.58);
+      border-bottom: 1px solid var(--line);
+    }
 
     .nav {
-      position: relative;
-      z-index: 10;
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 18px 22px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(10, 14, 22, 0.56);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+      gap: 20px;
+      min-height: 82px;
     }
+
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      font-size: 1.08rem;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      font-size: 1.12rem;
     }
+
     .brand-mark {
       width: 42px; height: 42px;
-      display: grid; place-items: center;
-      background: linear-gradient(135deg, rgba(245,195,75,0.22), rgba(71,184,255,0.16));
-      box-shadow: 0 0 20px rgba(245,195,75,0.18);
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(245,195,75,0.18), rgba(71,184,255,0.12));
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(245,195,75,0.14);
       overflow: hidden;
     }
-    .brand-name { text-transform: lowercase; }
+
+    .brand-mark img {
+      width: 100%; height: 100%; object-fit: contain; padding: 6px;
+    }
+
+    .brand-name {
+      text-transform: lowercase;
+      font-size: 1.08rem;
+    }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 28px;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.93rem;
       font-weight: 600;
     }
-    .nav-links a { transition: 0.25s ease; }
+
+    .nav-links a {
+      transition: color 0.2s ease;
+    }
+
     .nav-links a:hover { color: var(--text); }
 
-    .nav-cta {
-      padding: 12px 18px;
+    .nav-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
       border-radius: 999px;
       background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: #17120f;
+      color: #1a140d;
       font-weight: 800;
-      box-shadow: 0 16px 30px rgba(245,195,75,0.18);
+      box-shadow: 0 18px 32px rgba(245,195,75,0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .nav-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 40px rgba(245,195,75,0.22);
     }
 
     .hero {
-      position: relative;
-      z-index: 2;
-      max-width: 1200px;
-      margin: 52px auto 0;
+      padding: 72px 0 40px;
+    }
+
+    .hero-grid {
       display: grid;
       grid-template-columns: 1.08fr 0.92fr;
-      gap: 32px;
+      gap: 42px;
       align-items: center;
-      min-height: 620px;
+      min-height: 650px;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border: 1px solid var(--line);
       border-radius: 999px;
       background: rgba(255,255,255,0.02);
       color: var(--muted);
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
       text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.68rem;
       font-family: 'JetBrains Mono', monospace;
     }
+
     .eyebrow .dot {
       width: 8px; height: 8px; border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 12px rgba(245,195,75,0.8);
+      background: var(--primary); box-shadow: 0 0 12px rgba(245,195,75,0.8);
     }
 
     h1 {
       margin-top: 22px;
-      font-size: clamp(3rem, 5vw, 6rem);
+      font-size: clamp(3.3rem, 5vw, 6rem);
       line-height: 0.88;
-      letter-spacing: -0.075em;
+      letter-spacing: -0.08em;
       font-weight: 900;
     }
-    h1 .gradient {
-      background: linear-gradient(90deg, var(--primary), #ffd979 52%, var(--accent));
+
+    h1 .accent {
+      background: linear-gradient(90deg, var(--primary), #ffd883 52%, var(--accent));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
+
     .lead {
+      margin-top: 22px;
       max-width: 620px;
-      margin-top: 20px;
       color: var(--muted);
-      font-size: 1.04rem;
+      font-size: 1.08rem;
       line-height: 1.8;
     }
-    .actions {
-      margin-top: 30px;
+
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
+      margin-top: 30px;
     }
-    .button-primary, .button-secondary {
+
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       padding: 16px 24px;
-      border-radius: 999px;
       font-weight: 800;
-      transition: 0.25s ease;
+      border-radius: 999px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .button-primary {
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: #17120f;
+      color: #18130f;
       box-shadow: 0 20px 36px rgba(245,195,75,0.22);
     }
-    .button-secondary {
+
+    .btn-secondary {
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.02);
       color: var(--text);
     }
-    .button-primary:hover, .button-secondary:hover { transform: translateY(-2px); }
 
-    .metrics {
-      margin-top: 28px;
+    .metric-strip {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
       max-width: 640px;
+      margin-top: 36px;
     }
+
     .metric {
-      padding: 18px 16px;
+      padding: 20px 18px 18px;
       border-radius: 20px;
-      background: linear-gradient(180deg, rgba(15,22,34,0.8), rgba(18,29,44,0.96));
+      background: linear-gradient(180deg, rgba(14,22,34,0.82), rgba(17,28,42,0.96));
       border: 1px solid var(--line);
-      box-shadow: 0 16px 34px rgba(0,0,0,0.12);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.12);
     }
+
     .metric strong {
       display: block;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
       letter-spacing: -0.06em;
       color: var(--primary);
+      font-size: clamp(1.9rem, 3vw, 2.7rem);
       font-weight: 900;
     }
+
     .metric span {
       display: block;
       margin-top: 8px;
       color: var(--muted);
-      letter-spacing: 0.12em;
       text-transform: uppercase;
+      letter-spacing: 0.12em;
       font-size: 0.68rem;
       font-family: 'JetBrains Mono', monospace;
     }
 
     .visual-wrap {
       position: relative;
-      perspective: 1400px;
       display: grid;
       place-items: center;
-      min-height: 560px;
-    }
-    .visual-panel {
-      position: relative;
-      width: min(100%, 520px);
-      height: 560px;
-      transform-style: preserve-3d;
-      animation: float 7s ease-in-out infinite alternate;
-    }
-    @keyframes float {
-      0% { transform: rotateX(8deg) rotateY(-14deg) translateY(0); }
-      100% { transform: rotateX(-6deg) rotateY(12deg) translateY(-12px); }
+      min-height: 620px;
+      perspective: 1400px;
     }
 
-    .cube, .card, .ring, .mini {
+    .visual-card {
+      position: relative;
+      width: min(100%, 540px);
+      height: 590px;
+      transform-style: preserve-3d;
+      animation: floatCard 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+      0% { transform: rotateX(8deg) rotateY(-14deg) translateY(0); }
+      100% { transform: rotateX(-6deg) rotateY(12deg) translateY(-14px); }
+    }
+
+    .glass-panel {
       position: absolute;
-      border: 1px solid rgba(255,255,255,0.09);
-      background: rgba(18,26,38,0.72);
-      box-shadow: 0 30px 50px rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.08);
       backdrop-filter: blur(12px);
+      background: rgba(17,25,39,0.7);
+      box-shadow: 0 28px 52px rgba(0,0,0,0.22);
     }
-    .cube {
+
+    .visual-core {
+      position: absolute;
       inset: 50% auto auto 50%;
-      width: 300px; height: 300px;
-      transform: translate(-50%, -50%) rotateX(18deg) rotateY(24deg);
-      border-radius: 30px;
+      width: 310px; height: 310px;
+      transform: translate(-50%, -50%) rotateX(17deg) rotateY(22deg);
+      border-radius: 32px;
       background: linear-gradient(135deg, rgba(124,92,255,0.24), rgba(71,184,255,0.14), rgba(245,195,75,0.18));
+      border: 1px solid rgba(255,255,255,0.09);
     }
+
     .ring {
-      width: 220px; height: 220px;
-      border-radius: 50%;
+      position: absolute;
       left: 50%; top: 50%;
+      width: 220px; height: 220px;
       transform: translate(-50%, -50%) rotateX(72deg) rotateY(12deg);
-      border-width: 2px;
-      border-color: rgba(71,184,255,0.62);
-      box-shadow: 0 0 18px rgba(71,184,255,0.22), inset 0 0 20px rgba(71,184,255,0.18);
+      border-radius: 50%;
+      border: 2px solid rgba(71,184,255,0.7);
+      box-shadow: 0 0 18px rgba(71,184,255,0.18), inset 0 0 16px rgba(71,184,255,0.1);
     }
+
     .ring::after {
+      content: "";
+      position: absolute; inset: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(245,195,75,0.55);
+    }
+
+    .info-card {
+      width: 220px; top: 84px; right: 20px;
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      transform: translateZ(60px) rotateY(-18deg);
+      background: linear-gradient(180deg, rgba(12,18,26,0.96), rgba(17,25,38,0.84));
+    }
+
+    .info-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .live-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--primary); box-shadow: 0 0 12px rgba(245,195,75,0.8);
+    }
+
+    .bars { display: grid; gap: 9px; }
+    .bars span {
+      display: block;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(245,195,75,0.85), rgba(71,184,255,0.72));
+    }
+    .bars span:nth-child(1) { width: 84%; }
+    .bars span:nth-child(2) { width: 68%; }
+    .bars span:nth-child(3) { width: 92%; }
+
+    .mini-panel {
+      width: 160px; height: 160px;
+      left: 28px; bottom: 74px;
+      border-radius: 24px;
+      transform: translateZ(30px) rotateY(18deg);
+      background: linear-gradient(180deg, rgba(245,195,75,0.1), rgba(17,26,39,0.72));
+    }
+
+    .mini-panel::before {
       content: "";
       position: absolute;
       inset: 18px;
-      border-radius: 50%;
-      border: 1px solid rgba(245,195,75,0.5);
-    }
-    .card {
-      width: 220px;
-      top: 58px; right: 18px;
-      border-radius: 20px;
-      padding: 18px 18px 16px;
-      transform: translateZ(52px) rotateY(-20deg);
-      background: linear-gradient(180deg, rgba(15,22,34,0.92), rgba(17,24,38,0.82));
-    }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .badge {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 12px rgba(245,195,75,0.8);
-    }
-    .bars { display: grid; gap: 9px; margin-top: 14px; }
-    .bars span { display: block; height: 10px; border-radius: 999px; background: linear-gradient(90deg, rgba(245,195,75,0.8), rgba(71,184,255,0.7)); }
-    .bars span:nth-child(1) { width: 84%; }
-    .bars span:nth-child(2) { width: 66%; }
-    .bars span:nth-child(3) { width: 92%; }
-    .mini {
-      width: 156px;
-      height: 156px;
-      left: 30px;
-      bottom: 64px;
-      border-radius: 22px;
-      transform: translateZ(28px) rotateY(24deg);
-      background: linear-gradient(180deg, rgba(245,195,75,0.12), rgba(17,25,38,0.72));
-    }
-    .mini::before {
-      content: "";
-      position: absolute;
-      inset: 20px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.08);
-      background: linear-gradient(135deg, rgba(245,195,75,0.18), rgba(71,184,255,0.2));
+      background: linear-gradient(135deg, rgba(245,195,75,0.14), rgba(71,184,255,0.18));
     }
 
     .section {
-      position: relative;
-      z-index: 2;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 48px 20px 0;
+      padding: 32px 0 0;
     }
+
     .section-header {
       text-align: center;
-      margin-bottom: 30px;
+      margin: 0 auto 28px;
+      max-width: 760px;
     }
+
     .section-header h2 {
       font-size: clamp(2.2rem, 4vw, 3.3rem);
       letter-spacing: -0.06em;
       font-weight: 900;
+      line-height: 1.05;
     }
+
     .section-header p {
-      max-width: 680px;
-      margin: 14px auto 0;
+      margin-top: 14px;
       color: var(--muted);
       line-height: 1.8;
       font-size: 1rem;
@@ -359,121 +422,187 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
       gap: 24px;
+      margin-top: 16px;
     }
+
     .service-card {
       position: relative;
       padding: 28px 24px 26px;
       border-radius: 24px;
-      background: linear-gradient(180deg, rgba(16,22,34,0.8), rgba(18,28,42,0.96));
       border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,22,34,0.8), rgba(18,28,42,0.96));
       box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-      transition: 0.3s ease;
+      transition: transform 0.25s ease, border-color 0.25s ease;
       overflow: hidden;
     }
-    .service-card:hover {
-      transform: translateY(-6px) rotateX(2deg);
-      border-color: rgba(245,195,75,0.35);
-    }
+
     .service-card::before {
       content: "";
       position: absolute;
-      top: 0; left: 0; right: 0;
+      left: 0; right: 0; top: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(245,195,75,0.8), transparent);
     }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245,195,75,0.28);
+    }
+
     .icon-box {
       width: 58px; height: 58px;
       display: grid; place-items: center;
       border-radius: 18px;
-      background: rgba(245,195,75,0.1);
-      border: 1px solid rgba(245,195,75,0.26);
+      background: rgba(245,195,75,0.08);
+      border: 1px solid rgba(245,195,75,0.24);
       color: var(--primary);
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       margin-bottom: 18px;
     }
+
     .service-card h3 {
       font-size: 1.28rem;
       margin-bottom: 10px;
       letter-spacing: -0.04em;
     }
+
     .service-card p {
       color: var(--muted);
       line-height: 1.8;
     }
 
-    .showcase {
-      margin-top: 42px;
+    .feature-grid {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
       gap: 24px;
+      margin-top: 44px;
     }
-    .showcase-card, .mini-panel {
+
+    .feature-panel, .mini-panel-box {
       background: linear-gradient(180deg, rgba(16,22,34,0.8), rgba(18,28,42,0.94));
       border: 1px solid var(--line);
       border-radius: 26px;
       padding: 24px 22px;
       box-shadow: 0 18px 40px rgba(0,0,0,0.12);
     }
-    .showcase-card {
+
+    .feature-panel {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
       gap: 18px;
       align-items: center;
     }
+
     .shot {
-      height: 220px;
+      position: relative;
+      height: 260px;
       border-radius: 20px;
       border: 1px solid rgba(255,255,255,0.08);
       background:
-        linear-gradient(135deg, rgba(245,195,75,0.16), rgba(71,184,255,0.08)),
-        linear-gradient(180deg, rgba(12,18,27,0.9), rgba(18,29,44,0.88));
-      position: relative;
+        linear-gradient(135deg, rgba(245,195,75,0.12), rgba(71,184,255,0.08)),
+        linear-gradient(180deg, rgba(12,18,27,0.92), rgba(18,29,44,0.9));
       overflow: hidden;
     }
+
     .shot::before, .shot::after {
       content: "";
       position: absolute;
-      border-radius: 18px;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
     }
-    .shot::before { width: 48%; height: 64%; left: 18px; top: 18px; }
-    .shot::after { width: 36%; height: 50%; right: 20px; bottom: 18px; }
-    .showcase-card h3 { font-size: 1.5rem; letter-spacing: -0.04em; margin-bottom: 8px; }
-    .showcase-card p, .mini-panel p { color: var(--muted); line-height: 1.8; }
-    .mini-panel { display: grid; gap: 12px; }
+    .shot::before { width: 46%; height: 64%; left: 20px; top: 22px; }
+    .shot::after { width: 34%; height: 46%; right: 18px; bottom: 18px; }
+
+    .feature-panel h3, .mini-panel-box h3 {
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .feature-panel p, .mini-panel-box p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .mini-panel-box { display: grid; gap: 12px; }
+
     .mini-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
       padding: 14px 16px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--line);
       border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
       color: var(--text);
       font-weight: 600;
     }
+
     .mini-item span:last-child {
       color: var(--primary);
+      font-size: 0.78rem;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
     }
 
-    .quote-grid {
-      margin-top: 44px;
+    .process {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0,1fr));
       gap: 22px;
+      margin-top: 40px;
     }
-    .quote {
+
+    .step {
+      position: relative;
+      padding: 26px 22px 20px;
+      border-radius: 22px;
       background: linear-gradient(180deg, rgba(16,22,34,0.8), rgba(18,28,42,0.94));
       border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 24px 20px;
-      position: relative;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.1);
     }
-    .quote::before {
-      content: '\201C';
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      font-weight: 900;
+      background: linear-gradient(135deg, rgba(245,195,75,0.1), rgba(71,184,255,0.08));
+      border: 1px solid rgba(245,195,75,0.24);
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.04em;
+    }
+
+    .step p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .quotes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 22px;
+      margin-top: 40px;
+    }
+
+    .quote-card {
+      position: relative;
+      padding: 24px 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,22,34,0.8), rgba(18,28,42,0.94));
+    }
+
+    .quote-card::before {
+      content: '“';
       position: absolute;
       right: 18px; top: 12px;
       font-size: 4.5rem;
@@ -481,196 +610,208 @@
       color: rgba(245,195,75,0.18);
       font-weight: 700;
     }
-    .quote p {
+
+    .quote-card p {
       color: var(--muted);
       line-height: 1.8;
       position: relative;
       z-index: 1;
     }
+
     .person {
-      display: flex; align-items: center; gap: 12px; margin-top: 18px;
+      display: flex; align-items: center; gap: 12px;
+      margin-top: 20px;
     }
+
     .avatar {
       width: 42px; height: 42px; border-radius: 50%;
+      display: grid; place-items: center;
       background: linear-gradient(135deg, var(--primary), var(--accent));
-      display: grid; place-items: center; color: #17120f; font-weight: 800;
+      color: #17120f; font-weight: 800;
     }
-    .person strong { display: block; font-size: 0.9rem; }
-    .person span { font-size: 0.73rem; color: var(--muted); }
+
+    .person strong {
+      display: block; font-size: 0.9rem;
+    }
+
+    .person span {
+      display: block; color: var(--muted); font-size: 0.74rem;
+      margin-top: 2px;
+    }
 
     .cta-band {
-      margin: 80px auto 16px;
-      padding: 34px 28px;
-      max-width: 1200px;
+      margin: 72px auto 16px;
+      padding: 32px 28px;
       border-radius: 28px;
-      border: 1px solid rgba(245,195,75,0.28);
+      border: 1px solid rgba(245,195,75,0.25);
       background: linear-gradient(135deg, rgba(245,195,75,0.12), rgba(71,184,255,0.08), rgba(124,92,255,0.08));
       text-align: center;
       box-shadow: 0 24px 60px rgba(0,0,0,0.12);
     }
+
     .cta-band h3 {
-      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      font-size: clamp(1.9rem, 3vw, 2.9rem);
       letter-spacing: -0.05em;
       margin-bottom: 12px;
     }
+
     .cta-band p {
-      max-width: 640px;
-      margin: 0 auto 22px;
+      max-width: 660px;
+      margin: 0 auto 24px;
       color: var(--muted);
       line-height: 1.8;
     }
 
     footer {
-      position: relative;
-      z-index: 2;
+      padding: 26px 0 52px;
       text-align: center;
-      padding: 32px 20px 52px;
       color: var(--muted);
       border-top: 1px solid var(--line);
-      margin-top: 16px;
+      margin-top: 14px;
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(26px);
-      transition: all 0.8s ease;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
+
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
     @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .lead { margin-inline: auto; }
-      .actions { justify-content: center; }
-      .metrics { margin-inline: auto; }
-      .services, .quote-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .showcase { grid-template-columns: 1fr; }
-      .showcase-card { grid-template-columns: 1fr; }
-      .visual-wrap { min-height: 460px; }
-      .visual-panel { width: 420px; }
-    }
-    @media (max-width: 700px) {
-      .nav { padding-inline: 14px; }
+      .hero-grid, .feature-grid { grid-template-columns: 1fr; }
+      .services, .process, .quotes { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .visual-card { width: 440px; }
       .nav-links { display: none; }
-      .services, .metrics, .quote-grid { grid-template-columns: 1fr; }
-      .hero { margin-top: 34px; }
-      .button-primary, .button-secondary { width: 100%; }
-      .actions { display: grid; grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .nav { min-height: 74px; }
+      .hero { padding-top: 42px; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+      .metric-strip, .services, .process, .quotes { grid-template-columns: 1fr; }
+      .feature-panel { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(2.5rem, 14vw, 4rem); }
       .cta-band { padding-inline: 18px; }
-      h1 { font-size: clamp(2.5rem, 17vw, 4rem); }
-      .brand-name { font-size: 0.98rem; }
+      .nav-action { display: none; }
     }
   </style>
 </head>
 <body>
   <div class="page-shell">
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
+    <div class="bg-glow one"></div>
+    <div class="bg-glow two"></div>
+    <div class="bg-glow three"></div>
 
-    <nav class="nav" aria-label="Main navigation">
-      <a href="home.html" class="brand" aria-label="youridea.in home">
-        <span class="brand-mark"><img src="images/youridea-logo.svg" alt="youridea.in" /></span>
-        <span class="brand-name">youridea.in</span>
-      </a>
+    <header class="topbar">
+      <div class="container nav">
+        <a href="home.html" class="brand" aria-label="youridea.in home">
+          <span class="brand-mark"><img src="images/youridea-logo.svg" alt="youridea.in logo" /></span>
+          <span class="brand-name">youridea.in</span>
+        </a>
 
-      <div class="nav-links">
-        <a href="about.html">About</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="project.html">Projects</a>
-        <a href="dashboard.html">Portfolio</a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="about.html">About</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="project.html">Projects</a>
+          <a href="dashboard.html">Portfolio</a>
+        </nav>
+
+        <a class="nav-action" href="project.html">Start Project</a>
       </div>
+    </header>
 
-      <a class="nav-cta" href="project.html">Start Project</a>
-    </nav>
+    <main class="container hero">
+      <div class="hero-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="dot"></span> Creative digital studio</div>
+          <h1>Build brands that feel <span class="accent">future-ready.</span></h1>
+          <p class="lead">Premium design systems, high-converting websites, and bold growth strategies for businesses that want to look sharper, earn more trust, and stand out online.</p>
 
-    <main class="hero">
-      <div class="reveal">
-        <div class="eyebrow"><span class="dot"></span> Creative digital studio</div>
-        <h1>Build brands that feel <span class="gradient">future-ready.</span></h1>
-        <p class="lead">Premium websites, custom branding, and digital experiences designed to build trust and convert attention into leads.</p>
-
-        <div class="actions">
-          <a class="button-primary" href="project.html">Book a project <i class="fas fa-arrow-right"></i></a>
-          <a class="button-secondary" href="pricing.html">View pricing</a>
-        </div>
-
-        <div class="metrics">
-          <div class="metric">
-            <strong>50+</strong>
-            <span>Projects</span>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="project.html">Book a project <i class="fas fa-arrow-right"></i></a>
+            <a class="btn btn-secondary" href="pricing.html">View pricing</a>
           </div>
-          <div class="metric">
-            <strong>12+</strong>
-            <span>Industries</span>
-          </div>
-          <div class="metric">
-            <strong>24h</strong>
-            <span>Launch speed</span>
-          </div>
-        </div>
-      </div>
 
-      <div class="visual-wrap reveal" aria-hidden="true">
-        <div class="visual-panel">
-          <div class="cube"></div>
-          <div class="ring"></div>
-          <div class="card">
-            <div class="card-top">
-              <span>Growth UI</span>
-              <span class="badge"></span>
+          <div class="metric-strip">
+            <div class="metric">
+              <strong>50+</strong>
+              <span>Projects</span>
             </div>
-            <div class="bars">
-              <span></span>
-              <span></span>
-              <span></span>
+            <div class="metric">
+              <strong>12+</strong>
+              <span>Industries</span>
+            </div>
+            <div class="metric">
+              <strong>24h</strong>
+              <span>Launch speed</span>
             </div>
           </div>
-          <div class="mini"></div>
+        </div>
+
+        <div class="visual-wrap reveal">
+          <div class="visual-card" aria-hidden="true">
+            <div class="glass-panel visual-core"></div>
+            <div class="ring"></div>
+            <div class="glass-panel info-card">
+              <div class="info-top">
+                <span>Growth UI</span>
+                <span class="live-dot"></span>
+              </div>
+              <div class="bars">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <div class="glass-panel mini-panel"></div>
+          </div>
         </div>
       </div>
     </main>
 
-    <section class="section">
+    <section class="container section">
       <div class="section-header reveal">
         <div class="eyebrow"><span class="dot"></span> What we do</div>
         <h2>Strategy, design, and execution</h2>
-        <p>We create premium digital experiences that look sharp, feel professional, and help businesses grow with more trust.</p>
+        <p>We build premium digital experiences that turn attention into trust, then trust into real business growth.</p>
       </div>
 
       <div class="services reveal">
         <article class="service-card">
           <div class="icon-box"><i class="fas fa-paintbrush"></i></div>
           <h3>Brand Identity</h3>
-          <p>Positioning, visuals, messaging, and polished landing pages that make your business instantly memorable.</p>
+          <p>Positioning, visual direction, messaging, and polished brand systems that make your business instantly recognizable.</p>
         </article>
 
         <article class="service-card">
           <div class="icon-box"><i class="fas fa-code"></i></div>
           <h3>Website Design</h3>
-          <p>Responsive, modern websites built for trust, clarity, conversion, and mobile-first performance.</p>
+          <p>Conversion-focused, responsive websites built for speed, clarity, mobile performance, and premium first impressions.</p>
         </article>
 
         <article class="service-card">
           <div class="icon-box"><i class="fas fa-rocket"></i></div>
           <h3>Growth Launch</h3>
-          <p>SEO-ready pages, WhatsApp funnels, lead capture, and launch support to help your business scale faster.</p>
+          <p>SEO-ready pages, WhatsApp funnels, lead capture setup, and launch support designed to scale your reach faster.</p>
         </article>
       </div>
 
-      <div class="showcase reveal">
-        <div class="showcase-card">
+      <div class="feature-grid reveal">
+        <div class="feature-panel">
           <div class="shot"></div>
           <div>
-            <div class="eyebrow" style="margin-bottom:16px;"><span class="dot"></span> Case study</div>
+            <div class="eyebrow" style="margin-bottom: 16px;"><span class="dot"></span> Case study</div>
             <h3>Premium digital presence for modern brands</h3>
-            <p>We blend strategy, visual direction, and conversion thinking to build brand experiences that feel premium from the first click.</p>
+            <p>We combine strategic thinking, visual clarity, and conversion planning to turn a simple brand into a confident digital experience.</p>
           </div>
         </div>
 
-        <div class="mini-panel">
+        <div class="mini-panel-box">
           <div class="eyebrow"><span class="dot"></span> Deliverables</div>
           <div class="mini-item"><span>Brand system</span><span>Included</span></div>
           <div class="mini-item"><span>Landing pages</span><span>Custom</span></div>
@@ -679,8 +820,28 @@
         </div>
       </div>
 
-      <div class="quote-grid reveal">
-        <div class="quote">
+      <div class="process reveal">
+        <div class="step">
+          <div class="step-number">01</div>
+          <h3>Discover</h3>
+          <p>We understand your target audience, your offer, and what makes your business distinct before designing anything.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">02</div>
+          <h3>Design</h3>
+          <p>We shape the visual direction, layout, brand feel, and experience to match your ambition and positioning.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">03</div>
+          <h3>Launch</h3>
+          <p>We refine, publish, and optimize so your website looks premium and performs consistently across devices.</p>
+        </div>
+      </div>
+
+      <div class="quotes reveal">
+        <div class="quote-card">
           <p>We needed a website that felt premium and trustworthy. The final result gave us a cleaner identity and much stronger first impressions.</p>
           <div class="person">
             <div class="avatar">A</div>
@@ -691,7 +852,7 @@
           </div>
         </div>
 
-        <div class="quote">
+        <div class="quote-card">
           <p>The design direction was sharp, quick, and aligned with our brand. It feels like a proper modern business, not just a basic page.</p>
           <div class="person">
             <div class="avatar">S</div>
@@ -702,7 +863,7 @@
           </div>
         </div>
 
-        <div class="quote">
+        <div class="quote-card">
           <p>Execution was smooth and polished. We got a clean digital presence that turned visitors into real inquiries faster.</p>
           <div class="person">
             <div class="avatar">R</div>
@@ -715,10 +876,12 @@
       </div>
     </section>
 
-    <div class="cta-band reveal">
-      <h3>Ready to launch a sharper digital presence?</h3>
-      <p>Tell us what you are building and we’ll shape a premium website or brand system designed to look strong and convert better.</p>
-      <a class="button-primary" href="project.html">Tell us about your project</a>
+    <div class="container">
+      <div class="cta-band reveal">
+        <h3>Ready to launch a sharper digital presence?</h3>
+        <p>Tell us what you are building and we’ll shape a premium website, stronger brand positioning, and a clear visual system that actually converts.</p>
+        <a class="btn btn-primary" href="project.html">Tell us about your project</a>
+      </div>
     </div>
 
     <footer>© 2026 youridea.in | All Rights Reserved</footer>
