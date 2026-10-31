@@ -3,108 +3,134 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>youridea.in | Elite Web Solutions</title>
   <meta name="theme-color" content="#f5c34b" />
+  <title>youridea.in | Elite Web Solutions</title>
+  <meta name="description" content="Premium branding and digital experiences for businesses that want to stand out online." />
   <link rel="manifest" href="manifest.json" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
-      --bg: #0a0d14;
-      --panel: #111827;
-      --panel-2: #171f2f;
+      --bg: #070b12;
+      --bg-2: #101826;
+      --panel: rgba(16, 22, 34, 0.8);
       --primary: #f5c34b;
-      --primary-strong: #f0b921;
-      --accent: #1ea2ff;
-      --text: #edf3ff;
-      --muted: #aab7d0;
-      --line: rgba(255,255,255,0.1);
-      --glow: rgba(245,195,75,0.28);
+      --primary-2: #ffd977;
+      --accent: #47b8ff;
+      --accent-2: #7c5cff;
+      --text: #edf5ff;
+      --muted: #9daec7;
+      --line: rgba(255,255,255,0.09);
     }
-    * { box-sizing: border-box; margin:0; padding:0; }
-    html, body { height:100%; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
     body {
-      font-family:'Inter',sans-serif;
-      background: linear-gradient(180deg, #0a0d14 0%, #0d1426 100%);
-      color: var(--text);
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-    }
-    a { text-decoration:none; color:inherit; }
-    .brand-wrap {
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      position:relative;
-      overflow:hidden;
+      font-family: 'Inter', sans-serif;
       background:
-        radial-gradient(circle at 50% -20%, rgba(245,195,75,0.18), transparent 38%),
-        radial-gradient(circle at 80% 20%, rgba(30,162,255,0.14), transparent 30%),
-        radial-gradient(circle at 20% 80%, rgba(245,195,75,0.12), transparent 28%);
+        radial-gradient(circle at 50% -10%, rgba(245,195,75,0.22), transparent 32%),
+        radial-gradient(circle at 90% 15%, rgba(71,184,255,0.15), transparent 26%),
+        radial-gradient(circle at 20% 80%, rgba(124,92,255,0.15), transparent 28%),
+        linear-gradient(180deg, #070b12 0%, #0b1220 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
     }
-    .brand-wrap::before, .brand-wrap::after {
-      content:"";
-      position:absolute;
-      width:520px; height:520px; border-radius:50%;
-      filter:blur(80px); opacity:0.4;
-      pointer-events:none;
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .shell {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 24px;
     }
-    .brand-wrap::before { background: rgba(245,195,75,0.22); top:-180px; left:50%; transform:translateX(-50%); }
-    .brand-wrap::after { background: rgba(30,162,255,0.12); bottom:-180px; right:-60px; }
-    .inner {
-      position:relative;
-      z-index:1;
-      text-align:center;
-      display:flex; flex-direction:column; align-items:center; gap:26px;
-      padding:30px 20px;
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      opacity: 0.5;
     }
+    .orb.one { width: 420px; height: 420px; background: rgba(245,195,75,0.18); top: 8%; left: 50%; transform: translateX(-52%); }
+    .orb.two { width: 420px; height: 420px; background: rgba(71,184,255,0.13); right: -120px; bottom: 8%; }
+    .orb.three { width: 380px; height: 380px; background: rgba(124,92,255,0.12); left: -120px; top: 20%; }
+
+    .panel {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 760px);
+      padding: 36px 28px 42px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: rgba(11, 17, 27, 0.66);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 26px 60px rgba(0,0,0,0.24);
+      text-align: center;
+    }
+
     .logo-mark {
-      width: min(62vw, 300px);
-      filter:drop-shadow(0 18px 35px rgba(245,195,75,.25));
+      width: min(42vw, 200px);
+      margin: 0 auto 18px;
+      filter: drop-shadow(0 10px 30px rgba(245,195,75,0.28));
     }
+
     .brand-name {
-      font-size: clamp(2.2rem, 4vw, 4rem);
+      font-size: clamp(2.2rem, 5vw, 4.4rem);
       font-weight: 900;
       letter-spacing: -0.08em;
-      color: #fff;
+      line-height: 0.95;
       text-transform: lowercase;
     }
+
     .brand-name .accent { color: var(--primary); }
+
     .sub {
+      margin-top: 16px;
       color: var(--muted);
-      font-size: 0.92rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
+      font-size: 0.76rem;
       font-family: 'JetBrains Mono', monospace;
     }
+
     .button {
-      margin-top: 10px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
       padding: 16px 28px;
-      border:1px solid rgba(245,195,75,0.5);
-      border-radius:999px;
-      background: rgba(245,195,75,0.12);
+      border-radius: 999px;
+      border: 1px solid rgba(245,195,75,0.5);
+      background: linear-gradient(135deg, rgba(245,195,75,0.16), rgba(71,184,255,0.1));
       color: var(--text);
-      box-shadow: 0 0 20px rgba(245,195,75,0.15);
-      font-weight:700;
-      letter-spacing: 0.1em;
+      font-weight: 800;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      box-shadow: 0 18px 44px rgba(245,195,75,0.15);
       transition: 0.25s ease;
     }
+
     .button:hover {
       transform: translateY(-2px);
-      background: rgba(245,195,75,0.18);
+      box-shadow: 0 24px 54px rgba(245,195,75,0.2);
     }
   </style>
 </head>
 <body>
-  <div class="brand-wrap">
-    <div class="inner">
+  <div class="shell">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+
+    <div class="panel">
       <img class="logo-mark" src="images/youridea-logo.svg" alt="youridea.in logo" />
       <div class="brand-name"><span class="accent">your</span>idea.in</div>
       <div class="sub">Branding • Web Design • Digital Growth</div>
@@ -113,12 +139,3 @@
   </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
