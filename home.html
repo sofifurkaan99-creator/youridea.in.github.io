@@ -56,8 +56,8 @@
     .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.42;
+      filter: blur(90px);
+      opacity: 0.5;
       pointer-events: none;
       animation: floatOrb 12s ease-in-out infinite alternate;
     }
@@ -65,9 +65,9 @@
       0% { transform: translate3d(0,0,0) scale(1); }
       100% { transform: translate3d(18px,-18px,0) scale(1.08); }
     }
-    .orb.one { width: 440px; height: 440px; background: rgba(245,195,75,0.18); top: -20px; left: 50%; transform: translateX(-50%); }
-    .orb.two { width: 500px; height: 500px; background: rgba(71,184,255,0.12); right: -140px; top: 14%; animation-delay: .7s; }
-    .orb.three { width: 420px; height: 420px; background: rgba(124,92,255,0.12); left: -120px; bottom: 8%; animation-delay: 1.2s; }
+    .orb.one { width: 440px; height: 440px; background: rgba(245,195,75,0.18); top: -30px; left: 50%; transform: translateX(-50%); }
+    .orb.two { width: 550px; height: 550px; background: rgba(71,184,255,0.12); right: -190px; top: 12%; animation-delay: 0.8s; }
+    .orb.three { width: 420px; height: 420px; background: rgba(124,92,255,0.12); left: -160px; bottom: 8%; animation-delay: 1.1s; }
 
     .nav {
       position: relative;
@@ -158,8 +158,8 @@
 
     h1 {
       margin-top: 22px;
-      font-size: clamp(3.1rem, 6vw, 6.2rem);
-      line-height: 0.9;
+      font-size: clamp(3rem, 5vw, 6rem);
+      line-height: 0.88;
       letter-spacing: -0.075em;
       font-weight: 900;
     }
@@ -171,10 +171,10 @@
     }
     .lead {
       max-width: 620px;
-      margin-top: 22px;
+      margin-top: 20px;
       color: var(--muted);
-      font-size: 1.08rem;
-      line-height: 1.9;
+      font-size: 1.04rem;
+      line-height: 1.8;
     }
     .actions {
       margin-top: 30px;
@@ -209,7 +209,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
-      max-width: 680px;
+      max-width: 640px;
     }
     .metric {
       padding: 18px 16px;
@@ -237,7 +237,7 @@
 
     .visual-wrap {
       position: relative;
-      perspective: 1300px;
+      perspective: 1400px;
       display: grid;
       place-items: center;
       min-height: 560px;
@@ -343,16 +343,16 @@
       margin-bottom: 30px;
     }
     .section-header h2 {
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-size: clamp(2.2rem, 4vw, 3.3rem);
       letter-spacing: -0.06em;
       font-weight: 900;
     }
     .section-header p {
-      max-width: 700px;
+      max-width: 680px;
       margin: 14px auto 0;
       color: var(--muted);
       line-height: 1.8;
-      font-size: 1.02rem;
+      font-size: 1rem;
     }
 
     .services {
@@ -392,48 +392,13 @@
       margin-bottom: 18px;
     }
     .service-card h3 {
-      font-size: 1.35rem;
+      font-size: 1.28rem;
       margin-bottom: 10px;
       letter-spacing: -0.04em;
     }
     .service-card p {
       color: var(--muted);
       line-height: 1.8;
-    }
-
-    .process {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 20px;
-      margin-top: 36px;
-    }
-    .process-step {
-      padding: 22px 18px;
-      border-radius: 20px;
-      border: 1px solid var(--line);
-      background: rgba(12,18,27,0.72);
-    }
-    .step-index {
-      display: inline-flex;
-      width: 34px; height: 34px;
-      align-items: center; justify-content: center;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--primary);
-      background: rgba(245,195,75,0.08);
-      border: 1px solid rgba(245,195,75,0.2);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .process-step h4 {
-      margin-top: 16px;
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
-    .process-step p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.94rem;
     }
 
     .showcase {
@@ -494,7 +459,7 @@
       font-size: 0.75rem;
     }
 
-    .testimonials {
+    .quote-grid {
       margin-top: 44px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -518,7 +483,7 @@
     }
     .quote p {
       color: var(--muted);
-      line-height: 1.9;
+      line-height: 1.8;
       position: relative;
       z-index: 1;
     }
@@ -580,7 +545,7 @@
       .lead { margin-inline: auto; }
       .actions { justify-content: center; }
       .metrics { margin-inline: auto; }
-      .services, .process, .testimonials { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .services, .quote-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .showcase { grid-template-columns: 1fr; }
       .showcase-card { grid-template-columns: 1fr; }
       .visual-wrap { min-height: 460px; }
@@ -589,11 +554,13 @@
     @media (max-width: 700px) {
       .nav { padding-inline: 14px; }
       .nav-links { display: none; }
-      .services, .process, .metrics, .testimonials { grid-template-columns: 1fr; }
+      .services, .metrics, .quote-grid { grid-template-columns: 1fr; }
       .hero { margin-top: 34px; }
       .button-primary, .button-secondary { width: 100%; }
       .actions { display: grid; grid-template-columns: 1fr; }
       .cta-band { padding-inline: 18px; }
+      h1 { font-size: clamp(2.5rem, 17vw, 4rem); }
+      .brand-name { font-size: 0.98rem; }
     }
   </style>
 </head>
@@ -623,7 +590,7 @@
       <div class="reveal">
         <div class="eyebrow"><span class="dot"></span> Creative digital studio</div>
         <h1>Build brands that feel <span class="gradient">future-ready.</span></h1>
-        <p class="lead">We design premium websites, memorable brand systems, and conversion-focused digital experiences for businesses that want to look credible, feel premium, and win more trust online.</p>
+        <p class="lead">Premium websites, custom branding, and digital experiences designed to build trust and convert attention into leads.</p>
 
         <div class="actions">
           <a class="button-primary" href="project.html">Book a project <i class="fas fa-arrow-right"></i></a>
@@ -669,15 +636,15 @@
     <section class="section">
       <div class="section-header reveal">
         <div class="eyebrow"><span class="dot"></span> What we do</div>
-        <h2>Strategy, design, and digital execution</h2>
-        <p>From branded positioning to responsive website development, we build experiences that feel premium and turn attention into momentum.</p>
+        <h2>Strategy, design, and execution</h2>
+        <p>We create premium digital experiences that look sharp, feel professional, and help businesses grow with more trust.</p>
       </div>
 
       <div class="services reveal">
         <article class="service-card">
           <div class="icon-box"><i class="fas fa-paintbrush"></i></div>
           <h3>Brand Identity</h3>
-          <p>Positioning, visuals, messaging, and landing pages that make your business instantly more memorable.</p>
+          <p>Positioning, visuals, messaging, and polished landing pages that make your business instantly memorable.</p>
         </article>
 
         <article class="service-card">
@@ -689,31 +656,8 @@
         <article class="service-card">
           <div class="icon-box"><i class="fas fa-rocket"></i></div>
           <h3>Growth Launch</h3>
-          <p>SEO-ready pages, WhatsApp connectivity, lead flow systems, and launch support to help your business grow faster.</p>
+          <p>SEO-ready pages, WhatsApp funnels, lead capture, and launch support to help your business scale faster.</p>
         </article>
-      </div>
-
-      <div class="process reveal">
-        <div class="process-step">
-          <div class="step-index">01</div>
-          <h4>Discover</h4>
-          <p>We learn your goals, audience, and position to map the right strategy.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-index">02</div>
-          <h4>Design</h4>
-          <p>We create a premium visual system and user journey tailored to your brand.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-index">03</div>
-          <h4>Build</h4>
-          <p>We turn the concept into a high-performing, responsive website experience.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-index">04</div>
-          <h4>Launch</h4>
-          <p>We ship the final product and support rollout with optimization and follow-up.</p>
-        </div>
       </div>
 
       <div class="showcase reveal">
@@ -722,7 +666,7 @@
           <div>
             <div class="eyebrow" style="margin-bottom:16px;"><span class="dot"></span> Case study</div>
             <h3>Premium digital presence for modern brands</h3>
-            <p>We combine strategy and design to create business websites that feel premium, credible, and easy to trust from the first glance.</p>
+            <p>We blend strategy, visual direction, and conversion thinking to build brand experiences that feel premium from the first click.</p>
           </div>
         </div>
 
@@ -735,9 +679,9 @@
         </div>
       </div>
 
-      <div class="testimonials reveal">
+      <div class="quote-grid reveal">
         <div class="quote">
-          <p>We needed a website that felt premium and trustworthy. The final result gave us a clean identity and better conversion quality from the first week.</p>
+          <p>We needed a website that felt premium and trustworthy. The final result gave us a cleaner identity and much stronger first impressions.</p>
           <div class="person">
             <div class="avatar">A</div>
             <div>
@@ -748,7 +692,7 @@
         </div>
 
         <div class="quote">
-          <p>The design direction was sharp, fast, and truly aligned with our brand. It feels like a modern business with authority and clarity.</p>
+          <p>The design direction was sharp, quick, and aligned with our brand. It feels like a proper modern business, not just a basic page.</p>
           <div class="person">
             <div class="avatar">S</div>
             <div>
@@ -759,7 +703,7 @@
         </div>
 
         <div class="quote">
-          <p>Execution was smooth and professional. We got a clean digital presence that turned visitors into real inquiries quickly.</p>
+          <p>Execution was smooth and polished. We got a clean digital presence that turned visitors into real inquiries faster.</p>
           <div class="person">
             <div class="avatar">R</div>
             <div>
@@ -773,7 +717,7 @@
 
     <div class="cta-band reveal">
       <h3>Ready to launch a sharper digital presence?</h3>
-      <p>Tell us what you are building and we will shape a premium website or brand system built to look strong and convert better.</p>
+      <p>Tell us what you are building and we’ll shape a premium website or brand system designed to look strong and convert better.</p>
       <a class="button-primary" href="project.html">Tell us about your project</a>
     </div>
 
