@@ -1,0 +1,18 @@
+const DEFAULT_STORE = {
+  adminUser: {
+    username: 'admin',
+    password: 'admin123'
+  },
+  overview: {
+    totalProjects: 50,
+    activeClients: 12,
+    responseTime: '24h',
+    salesThisMonth: '₹1.8L'
+  },
+  projects: [],
+  enquiries: [],
+  services: [],
+  pricing: []
+};
+
+module.exports = DEFAULT_STORE;
